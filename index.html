@@ -331,7 +331,14 @@
     transition: transform .65s cubic-bezier(.4,0,.2,1);
     border-radius: 12px;
   }
-  .sport-showcase-card:hover .flip-inner { transform: rotateY(180deg); }
+  .sport-showcase-card:hover .flip-inner,
+  .sport-showcase-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+  .sport-showcase-card:hover .flip-back,
+  .sport-showcase-card.flipped .flip-back { pointer-events: all; }
+
+  .sport-showcase-card:hover .flip-front,
+  .sport-showcase-card.flipped .flip-front { pointer-events: none; }
 
   /* cara frontal */
   .flip-front, .flip-back {
@@ -370,6 +377,7 @@
   /* cara trasera */
   .flip-back {
     transform: rotateY(180deg);
+    pointer-events: none;
     background: var(--navy-light);
     border: 1px solid rgba(245,166,35,0.25);
     display: flex; flex-direction: column;
@@ -1701,6 +1709,26 @@
     waBadge.style.display = 'none';
   });
   waClose.addEventListener('click', () => waWidget.classList.remove('open'));
+</script>
+
+<script>
+  // Flip cards con tap en móvil
+  document.querySelectorAll('.sport-showcase-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const isTouch = window.matchMedia('(hover: none)').matches;
+      if (isTouch) {
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
+  // Cerrar flip al tocar fuera
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.sport-showcase-card')) {
+      document.querySelectorAll('.sport-showcase-card.flipped')
+        .forEach(c => c.classList.remove('flipped'));
+    }
+  });
 </script>
 
 </body>
