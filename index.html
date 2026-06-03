@@ -91,12 +91,14 @@
   }
   .hero-bg {
     position: absolute; inset: 0;
+    pointer-events: none;
     background:
       radial-gradient(ellipse 60% 70% at 70% 50%, rgba(245,166,35,0.08) 0%, transparent 70%),
       radial-gradient(ellipse 40% 50% at 20% 80%, rgba(230,48,48,0.05) 0%, transparent 60%);
   }
   .hero-lines {
     position: absolute; inset: 0; overflow: hidden;
+    pointer-events: none;
   }
   .hero-lines::before, .hero-lines::after {
     content: '';
@@ -118,6 +120,7 @@
     transform: translateY(-50%);
     line-height: 1;
     user-select: none;
+    pointer-events: none;
   }
   .hero-content {
     max-width: 1200px; margin: 0 auto; padding: 0 48px;
@@ -355,10 +358,12 @@
     position: absolute; inset: 0;
     background-size: cover;
     background-position: center top;
+    pointer-events: none;
   }
   .showcase-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+    pointer-events: none;
   }
   .showcase-card-content {
     position: relative; z-index: 2;
@@ -1080,6 +1085,36 @@
     .testimonios-grid { grid-template-columns: 1fr; }
     .footer-content { grid-template-columns: 1fr 1fr; gap: 32px; }
     .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* ─── FLIP EN MÓVIL: sin 3D, solo fade ─── */
+  @media (hover: none) {
+    .sport-showcase-card { perspective: none; }
+    .flip-inner {
+      transform-style: flat;
+      transition: none;
+      transform: none !important;
+    }
+    .flip-front {
+      position: relative;
+      transition: opacity .3s;
+      opacity: 1;
+    }
+    .flip-back {
+      position: absolute; inset: 0;
+      transform: none;
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+    }
+    .sport-showcase-card.flipped .flip-front {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sport-showcase-card.flipped .flip-back {
+      opacity: 1;
+      pointer-events: all;
+    }
   }
 
   /* ─── ANIMATIONS ─── */
