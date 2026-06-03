@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prepa ECCA · Alto Rendimiento · León, Gto.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #F5A623;
+    --gold-dark: #C07D00;
+    --navy: #0A0F1E;
+    --navy-mid: #111827;
+    --navy-light: #1E2A3A;
+    --white: #FFFFFF;
+    --off-white: #F0EEE8;
+    --text-muted: #8FA3B1;
+    --red: #E63030;
+    --green: #1DB954;
+    --radius: 4px;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 48px;
+    background: rgba(10,15,30,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,166,35,0.15);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 10px 24px;
+    font-family: var(--font-cond);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+  }
+  .nav-cta:hover { background: #FFB93C; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: var(--navy);
+    padding-top: 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 70% 50%, rgba(245,166,35,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(230,48,48,0.05) 0%, transparent 60%);
+  }
+  .hero-lines {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .hero-lines::before, .hero-lines::after {
+    content: '';
+    position: absolute;
+    background: rgba(245,166,35,0.06);
+  }
+  .hero-lines::before {
+    width: 1px; height: 200%;
+    left: 60%; top: -50%;
+    transform: rotate(-15deg);
+    box-shadow: 80px 0 0 rgba(245,166,35,0.04), 160px 0 0 rgba(245,166,35,0.02);
+  }
+  .hero-grid-num {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 280px;
+    color: rgba(245,166,35,0.04);
+    right: -20px; top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    user-select: none;
+  }
+  .hero-content {
+    max-width: 1200px; margin: 0 auto; padding: 0 48px;
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    padding: 6px 16px;
+    font-family: var(--font-cond);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(64px, 8vw, 110px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .hero-title .accent { color: var(--gold); display: block; }
+  .hero-title .stroke {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+  .hero-subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin: 24px 0 40px;
+    max-width: 440px;
+    line-height: 1.7;
+  }
+  .hero-ctas { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 16px 36px;
+    font-family: var(--font-cond);
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all .2s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: #FFB93C; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.3); }
+  .btn-secondary {
+    color: var(--white);
+    padding: 16px 36px;
+    font-family: var(--font-cond);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all .2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  /* Sports visual right side */
+  .hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sports-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 480px;
+  }
+  .sport-card {
+    position: relative;
+    overflow: hidden;
+    transition: all .3s;
+    cursor: default;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    min-height: 160px;
+    display: flex; align-items: flex-end;
+  }
+  .sport-card-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center top;
+    transition: transform .4s;
+  }
+  .sport-card:hover .sport-card-bg { transform: scale(1.06); }
+  .sport-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 60%, transparent 100%);
+  }
+  .sport-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .sport-card.featured {
+    grid-column: span 2;
+    min-height: 180px;
+    border-color: rgba(245,166,35,0.3);
+  }
+  .sport-card-content {
+    position: relative; z-index: 2;
+    padding: 20px 20px 18px;
+    width: 100%;
+  }
+  .sport-icon { font-size: 32px; margin-bottom: 6px; line-height: 1; }
+  .sport-name {
+    font-family: var(--font-cond);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .sport-tag {
+    font-size: 10px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 100px 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .section-tag {
+    font-family: var(--font-cond);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .section-title .stroke {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.4);
+    color: transparent;
+  }
+
+  /* ─── DEPORTES ─── */
+  #deportes { background: var(--navy-mid); }
+  .deportes-intro {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
+    margin-bottom: 64px;
+  }
+  .deportes-intro p { color: var(--text-muted); font-size: 17px; line-height: 1.8; }
+  .sports-showcase { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  /* flip wrapper */
+  .sport-showcase-card {
+    border-radius: 12px;
+    min-height: 420px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    min-height: 420px;
+    transform-style: preserve-3d;
+    transition: transform .65s cubic-bezier(.4,0,.2,1);
+    border-radius: 12px;
+  }
+  .sport-showcase-card:hover .flip-inner { transform: rotateY(180deg); }
+
+  /* cara frontal */
+  .flip-front, .flip-back {
+    position: absolute; inset: 0;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+  }
+  .flip-front {
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .showcase-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center top;
+  }
+  .showcase-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+  }
+  .showcase-card-content {
+    position: relative; z-index: 2;
+    padding: 0 24px 28px;
+    text-align: center;
+  }
+  .showcase-sport-name {
+    font-family: var(--font-display);
+    font-size: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  }
+
+  /* cara trasera */
+  .flip-back {
+    transform: rotateY(180deg);
+    background: var(--navy-light);
+    border: 1px solid rgba(245,166,35,0.25);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 40px 28px;
+    gap: 16px;
+  }
+  .flip-back-name {
+    font-family: var(--font-display);
+    font-size: 42px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .flip-back-line {
+    width: 48px; height: 2px;
+    background: var(--gold);
+    opacity: .5;
+  }
+  .showcase-desc {
+    font-size: 14px;
+    color: var(--off-white);
+    line-height: 1.7;
+  }
+  .showcase-nivel {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.4);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 8px;
+  }
+
+  /* ─── GALERÍA ─── */
+  .gallery-btn-wrap { text-align: center; margin-top: 48px; }
+  .gallery-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 14px 36px;
+    font-family: var(--font-cond);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all .25s;
+  }
+  .gallery-btn:hover { background: var(--gold); color: var(--navy); }
+  .gallery-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* lightbox overlay */
+  .lightbox {
+    display: none;
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,0.95);
+    flex-direction: column;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+  }
+  .lightbox-title {
+    font-family: var(--font-cond);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .lightbox-close {
+    background: none; border: none; cursor: pointer;
+    color: var(--white); font-size: 36px; line-height: 1; padding: 4px 8px;
+    transition: color .2s;
+  }
+  .lightbox-close:hover { color: var(--gold); }
+
+  /* main image area */
+  .lightbox-main {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding: 16px 72px;
+  }
+  .lightbox-img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+    user-select: none;
+  }
+  .lightbox-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white); font-size: 28px;
+    width: 52px; height: 52px; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+  }
+  .lightbox-arrow:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+  .lightbox-arrow.prev { left: 12px; }
+  .lightbox-arrow.next { right: 12px; }
+
+  /* thumbnails */
+  .lightbox-thumbs {
+    display: flex; gap: 8px; justify-content: center;
+    padding: 12px 24px 20px;
+    overflow-x: auto; flex-shrink: 0;
+  }
+  .lightbox-thumbs::-webkit-scrollbar { height: 4px; }
+  .lightbox-thumbs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+  .lb-thumb {
+    width: 64px; height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0.45;
+    border: 2px solid transparent;
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  .lb-thumb:hover { opacity: 0.75; }
+  .lb-thumb.active { opacity: 1; border-color: var(--gold); }
+
+  /* contador */
+  .lightbox-counter {
+    position: absolute; bottom: 90px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-cond);
+    font-size: 13px; letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    pointer-events: none;
+  }
+
+  /* ─── TECNOLOGÍA IA ─── */
+  #tecnologia {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .tec-bg-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 55% 60% at 80% 50%, rgba(99,179,237,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 35% 40% at 10% 80%, rgba(139,92,246,0.06) 0%, transparent 60%);
+  }
+  .tec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+    position: relative; z-index: 2;
+  }
+  .tec-image-wrap {
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .tec-image-wrap img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: brightness(0.88) saturate(1.1);
+  }
+  .tec-image-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(99,179,237,0.18) 0%, rgba(139,92,246,0.12) 100%);
+  }
+  .tec-image-badge {
+    position: absolute;
+    bottom: 24px; left: 24px;
+    background: rgba(10,15,30,0.88);
+    border: 1px solid rgba(99,179,237,0.35);
+    backdrop-filter: blur(8px);
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .tec-image-badge-dot {
+    width: 10px; height: 10px;
+    background: #63B3ED;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  .tec-image-badge span {
+    font-family: var(--font-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #63B3ED;
+  }
+  .tec-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(99,179,237,0.1);
+    border: 1px solid rgba(99,179,237,0.3);
+    padding: 6px 16px;
+    font-family: var(--font-cond);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #63B3ED;
+    margin-bottom: 24px;
+  }
+  .tec-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .tec-title .tec-accent { color: #63B3ED; }
+  .tec-desc {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .tec-pills {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 40px;
+  }
+  .tec-pill {
+    padding: 8px 18px;
+    border: 1px solid rgba(99,179,237,0.25);
+    background: rgba(99,179,237,0.07);
+    font-family: var(--font-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--off-white);
+  }
+  .tec-features {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .tec-features li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 15px; color: var(--off-white); line-height: 1.5;
+  }
+  .tec-features li::before {
+    content: '▸';
+    color: #63B3ED;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  @media (max-width: 900px) {
+    .tec-grid { grid-template-columns: 1fr; gap: 40px; }
+    .tec-image-wrap img { height: 280px; }
+    .tec-image-wrap { order: -1; }
+  }
+
+  /* ─── POR QUÉ ECCA ─── */
+  #porque { background: var(--navy); }
+  .porque-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 64px; }
+  .porque-item {
+    background: var(--navy-mid);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background .3s;
+  }
+  .porque-item:hover { background: var(--navy-light); }
+  .porque-num {
+    font-family: var(--font-display);
+    font-size: 80px;
+    color: rgba(245,166,35,0.08);
+    line-height: 1;
+    position: absolute;
+    top: 16px; right: 24px;
+  }
+  .porque-icon { font-size: 32px; margin-bottom: 20px; }
+  .porque-title {
+    font-family: var(--font-cond);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .porque-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ─── SISTEMAS ─── */
+  #sistemas { background: var(--navy-mid); }
+  .sistemas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 64px; }
+  .sistema-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sistema-card.highlighted {
+    background: linear-gradient(135deg, rgba(245,166,35,0.12) 0%, rgba(245,166,35,0.04) 100%);
+    border-color: rgba(245,166,35,0.3);
+  }
+  .sistema-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .sistema-tag.gold { background: var(--gold); color: var(--navy); }
+  .sistema-tag.outline { border: 1px solid rgba(255,255,255,0.2); color: var(--text-muted); }
+  .sistema-title {
+    font-family: var(--font-cond);
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+  .sistema-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; }
+  .sistema-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+  .sistema-features li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: var(--off-white);
+  }
+  .sistema-features li::before {
+    content: '→';
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ─── INSCRIPCIÓN / CTA ─── */
+  #inscripcion {
+    background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+  .inscripcion-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(245,166,35,0.1) 0%, transparent 70%);
+  }
+  .inscripcion-content {
+    text-align: center;
+    position: relative; z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .inscripcion-title {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 8vw, 96px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+  .inscripcion-title .line2 { color: var(--gold); }
+  .inscripcion-subtitle { font-size: 18px; color: var(--text-muted); margin-bottom: 48px; }
+  .inscripcion-form { display: flex; flex-direction: column; gap: 16px; max-width: 480px; margin: 0 auto 32px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 14px 18px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--white);
+    width: 100%;
+    transition: border-color .2s;
+  }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(245,166,35,0.05);
+  }
+  .form-submit {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 16px;
+    font-family: var(--font-cond);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    width: 100%;
+    transition: all .2s;
+  }
+  .form-submit:hover { background: #FFB93C; transform: translateY(-2px); }
+  .inscripcion-contact {
+    display: flex; gap: 40px; justify-content: center; align-items: center;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    flex-wrap: wrap;
+  }
+  .contact-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-muted); }
+  .contact-item strong { color: var(--white); }
+
+  /* ─── TESTIMONIOS ─── */
+  #testimonios { background: var(--navy-mid); }
+  .testimonios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 64px; }
+  .testimonio-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 36px 28px;
+    position: relative;
+  }
+  .testimonio-quote {
+    font-size: 40px;
+    color: var(--gold);
+    font-family: Georgia, serif;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .testimonio-text { font-size: 15px; color: var(--off-white); line-height: 1.8; font-style: italic; margin-bottom: 24px; }
+  .testimonio-author { display: flex; align-items: center; gap: 12px; }
+  .testimonio-avatar {
+    width: 44px; height: 44px;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-cond);
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--gold);
+  }
+  .testimonio-name { font-weight: 600; font-size: 14px; }
+  .testimonio-role { font-size: 12px; color: var(--text-muted); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 64px 0 32px;
+  }
+  .footer-content {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand-name {
+    font-family: var(--font-display);
+    font-size: 36px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .footer-brand-name span { color: var(--gold); }
+  .footer-brand-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; max-width: 280px; margin-bottom: 24px; }
+  .footer-heading {
+    font-family: var(--font-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-tagline {
+    font-family: var(--font-cond);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,166,35,0.6);
+  }
+
+  /* ─── WHATSAPP WIDGET ─── */
+  .wa-widget {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 200;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+  }
+
+  /* popup card */
+  .wa-popup {
+    width: 320px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    overflow: hidden;
+    transform: scale(0.85) translateY(12px);
+    opacity: 0;
+    pointer-events: none;
+    transform-origin: bottom right;
+    transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s;
+  }
+  .wa-widget.open .wa-popup {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* header */
+  .wa-popup-header {
+    background: #075E54;
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .wa-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 20px; color: var(--navy);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .wa-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .wa-info { flex: 1; }
+  .wa-name {
+    font-family: var(--font-cond);
+    font-size: 15px; font-weight: 700;
+    color: #fff; letter-spacing: .5px;
+  }
+  .wa-status {
+    font-size: 12px; color: rgba(255,255,255,0.75);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .wa-status::before {
+    content: '';
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #25D366; flex-shrink: 0;
+  }
+  .wa-popup-close {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.75); font-size: 22px; line-height: 1;
+    padding: 2px 4px; transition: color .2s;
+  }
+  .wa-popup-close:hover { color: #fff; }
+
+  /* body */
+  .wa-popup-body {
+    background: #ECE5DD;
+    padding: 20px 16px 16px;
+  }
+  .wa-bubble {
+    background: #fff;
+    border-radius: 0 10px 10px 10px;
+    padding: 12px 14px 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    max-width: 90%;
+    font-size: 14px; color: #333; line-height: 1.55;
+  }
+  .wa-bubble-time {
+    text-align: right; font-size: 11px;
+    color: #999; margin-top: 6px;
+  }
+
+  /* CTA */
+  .wa-popup-cta {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: #25D366;
+    color: #fff;
+    padding: 14px;
+    font-family: var(--font-cond);
+    font-size: 17px; font-weight: 700; letter-spacing: .5px;
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .wa-popup-cta:hover { background: #1ebe5d; }
+  .wa-popup-cta svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+
+  /* botón flotante */
+  .wa-fab {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #25D366;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+    transition: all .2s;
+    position: relative;
+  }
+  .wa-fab:hover { transform: scale(1.08); box-shadow: 0 8px 28px rgba(37,211,102,0.55); }
+  .wa-fab svg { width: 32px; height: 32px; fill: white; }
+  .wa-fab-badge {
+    position: absolute; top: -3px; right: -3px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #E63030;
+    border: 2px solid var(--navy);
+    font-size: 10px; font-weight: 700; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ─── RIBBON ─── */
+  .announce-bar {
+    background: var(--gold);
+    color: var(--navy);
+    text-align: center;
+    padding: 10px 16px;
+    font-family: var(--font-cond);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative; z-index: 99;
+  }
+  .announce-bar a { color: var(--navy); font-weight: 900; }
+
+  /* ─── HAMBURGER ─── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 101;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 26px; height: 2px;
+    background: var(--white);
+    transition: all .3s;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,15,30,0.98);
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 44px;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mobile-cta {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 16px 48px;
+    font-family: var(--font-cond);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 16px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 10px 24px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-cta { display: none; }
+    .hero-content { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; }
+    .hero-visual { display: none; }
+    .hero-stats { gap: 24px; }
+    .container { padding: 0 24px; }
+    .deportes-intro { grid-template-columns: 1fr; gap: 24px; }
+    .sports-showcase { grid-template-columns: 1fr 1fr; }
+    .porque-grid { grid-template-columns: 1fr; gap: 2px; }
+    .sistemas-grid { grid-template-columns: 1fr; }
+    .testimonios-grid { grid-template-columns: 1fr; }
+    .footer-content { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge { animation: fadeUp .6s ease both; }
+  .hero-title { animation: fadeUp .6s .15s ease both; }
+  .hero-subtitle { animation: fadeUp .6s .3s ease both; }
+  .hero-ctas { animation: fadeUp .6s .45s ease both; }
+  .hero-stats { animation: fadeUp .6s .6s ease both; }
+  .sports-grid { animation: fadeUp .7s .3s ease both; }
+</style>
+</head>
+<body>
+
+<!-- Anuncio -->
+<div class="announce-bar">
+  🏆 Inscripciones abiertas · Inicio de clases agosto 2025 · 
+  <a href="https://wa.me/524777535213">¡Aparta tu lugar hoy!</a>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="img/logoecca_sin_fondo.png" alt="Prepa ECCA" style="height:72px; width:auto; display:block;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#deportes">Deportes</a></li>
+    <li><a href="#tecnologia">Tecnología</a></li>
+    <li><a href="#porque">¿Por qué ECCA?</a></li>
+    <li><a href="#sistemas">Sistemas</a></li>
+    <li><a href="#testimonios">Padres opinan</a></li>
+  </ul>
+  <a href="#inscripcion" class="nav-cta">Inscríbete</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Menú móvil -->
+<div class="mobile-menu" id="mobileMenu">
+  <button id="mobileClose" aria-label="Cerrar menú" style="position:absolute; top:24px; right:24px; background:none; border:none; cursor:pointer; color:var(--white); font-size:40px; line-height:1; padding:8px;">&#x2715;</button>
+  <a href="#deportes">Deportes</a>
+  <a href="#tecnologia">Tecnología</a>
+  <a href="#porque">¿Por qué ECCA?</a>
+  <a href="#sistemas">Sistemas</a>
+  <a href="#testimonios">Padres opinan</a>
+  <a href="#inscripcion" class="mobile-cta">Inscríbete</a>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  mobileClose.addEventListener('click', closeMenu);
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-grid-num">ECCA</div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge">León, Guanajuato · Desde 1980</div>
+      <!-- Título alternativo: activar cambiando display:none por display:block -->
+      <h1 class="hero-title" style="display:none;">
+        <span>FORMA</span>
+        <span class="accent">CAMPEONES</span>
+        <span class="stroke">DENTRO Y FUERA</span>
+      </h1>
+      <h1 class="hero-alt-subtitle" style="font-family:var(--font-display); font-size:clamp(52px, 7vw, 96px); line-height:0.95; letter-spacing:2px; text-transform:uppercase; color:var(--white); margin-bottom:8px;">
+        Preparatoria de Alto Rendimiento
+      </h1>
+      <p class="hero-subtitle">
+        En Prepa ECCA combinamos excelencia académica con deporte de alto rendimiento. Tu hijo no solo obtiene su preparatoria — desarrolla disciplina, carácter y metas claras para la vida.
+      </p>
+      <div class="hero-ctas">
+        <a href="#inscripcion" class="btn-primary">Inscribir a mi hijo</a>
+        <a href="https://wa.me/524777535213" class="btn-secondary">Agendar visita</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Deportes<br>de alto rendimiento</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Sistemas<br>de estudio</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">40+</div>
+          <div class="stat-label">Años formando<br>líderes</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="sports-grid">
+        <div class="sport-card featured">
+          <div class="sport-card-bg" style="background-image: url('img/box.png');"></div>
+          <div class="sport-card-overlay"></div>
+          <div class="sport-card-content">
+            <div class="sport-name">Box</div>
+            <div class="sport-tag">Disciplina · Concentración · Fuerza mental</div>
+          </div>
+        </div>
+        <div class="sport-card">
+          <div class="sport-card-bg" style="background-image: url('img/futbol.png');"></div>
+          <div class="sport-card-overlay"></div>
+          <div class="sport-card-content">
+            <div class="sport-name">Fútbol</div>
+            <div class="sport-tag">La mejor academia de León</div>
+          </div>
+        </div>
+        <div class="sport-card">
+          <div class="sport-card-bg" style="background-image: url('img/tocho.png');"></div>
+          <div class="sport-card-overlay"></div>
+          <div class="sport-card-content">
+            <div class="sport-name">Tocho</div>
+            <div class="sport-tag">Trabajo en equipo</div>
+          </div>
+        </div>
+        <div class="sport-card">
+          <div class="sport-card-bg" style="background-image: url('img/basketball.png');"></div>
+          <div class="sport-card-overlay"></div>
+          <div class="sport-card-content">
+            <div class="sport-name">Basketball</div>
+            <div class="sport-tag">Velocidad · Inteligencia · Actitud</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Deportes -->
+<section id="deportes">
+  <div class="container">
+    <div class="deportes-intro">
+      <div>
+        <div class="section-tag">Programa deportivo</div>
+        <h2 class="section-title">
+          DEPORTE DE<br>
+          <span class="stroke">ALTO</span><br>
+          RENDIMIENTO
+        </h2>
+      </div>
+      <div>
+        <p>
+          Creemos que el deporte forma el carácter que el salón de clases no puede formar solo. Nuestros programas están diseñados para jóvenes que terminaron la secundaria y quieren ir más allá: con entrenadores certificados, instalaciones de calidad y una cultura donde el esfuerzo tiene valor real.
+        </p>
+      </div>
+    </div>
+    <div class="sports-showcase">
+
+      <div class="sport-showcase-card">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="showcase-bg" style="background-image: url('img/box.png');"></div>
+            <div class="showcase-overlay"></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-name">Box</div>
+            <div class="flip-back-line"></div>
+            <p class="showcase-desc">El deporte que más disciplina mental desarrolla. Aprendes a controlar tus emociones, a superar el miedo y a perseverar cuando es difícil.</p>
+            <span class="showcase-nivel">Alto rendimiento</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sport-showcase-card">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="showcase-bg" style="background-image: url('img/futbol.png');"></div>
+            <div class="showcase-overlay"></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-name">Fútbol</div>
+            <div class="flip-back-line"></div>
+            <p class="showcase-desc">Una de las academias de fútbol más reconocidas de León. Técnica, táctica y formación física con entrenadores profesionales.</p>
+            <span class="showcase-nivel">Academia certificada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sport-showcase-card">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="showcase-bg" style="background-image: url('img/tocho.png');"></div>
+            <div class="showcase-overlay"></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-name">Tocho Bandera</div>
+            <div class="flip-back-line"></div>
+            <p class="showcase-desc">Más que un deporte: es trabajo colectivo, estrategia y comunicación. Ideal para jóvenes que quieren desarrollar liderazgo.</p>
+            <span class="showcase-nivel">Competencias interescolar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sport-showcase-card">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="showcase-bg" style="background-image: url('img/basketball.png');"></div>
+            <div class="showcase-overlay"></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-back-name">Basketball</div>
+            <div class="flip-back-line"></div>
+            <p class="showcase-desc">Velocidad, inteligencia y actitud en cada jugada. Desarrollamos jugadores completos con visión de cancha y trabajo en equipo.</p>
+            <span class="showcase-nivel">Alto rendimiento</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Botón galería -->
+    <div class="gallery-btn-wrap">
+      <button class="gallery-btn" id="openGallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Ver galería de fotos
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- Galería lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-header">
+    <span class="lightbox-title">Galería · Prepa ECCA</span>
+    <button class="lightbox-close" id="closeLightbox">&#x2715;</button>
+  </div>
+  <div class="lightbox-main">
+    <button class="lightbox-arrow prev" id="lbPrev">&#8249;</button>
+    <img class="lightbox-img" id="lbImg" src="" alt="Galería ECCA">
+    <span class="lightbox-counter" id="lbCounter">1 / 8</span>
+    <button class="lightbox-arrow next" id="lbNext">&#8250;</button>
+  </div>
+  <div class="lightbox-thumbs" id="lbThumbs"></div>
+</div>
+
+<script>
+  const galleryImages = [
+    'img/deportes/ecca_1.jpg',
+    'img/deportes/ecca_2.jpg',
+    'img/deportes/ecca_3.jpg',
+    'img/deportes/ecca_4.jpg',
+    'img/deportes/ecca_5.jpg',
+    'img/deportes/ecca_6.jpg',
+    'img/deportes/ecca_7.jpg',
+    'img/deportes/ecca_8.jpg',
+  ];
+  let lbCurrent = 0;
+  const lightbox   = document.getElementById('lightbox');
+  const lbImg      = document.getElementById('lbImg');
+  const lbCounter  = document.getElementById('lbCounter');
+  const lbThumbs   = document.getElementById('lbThumbs');
+
+  // Generar miniaturas
+  galleryImages.forEach((src, i) => {
+    const t = document.createElement('img');
+    t.src = src; t.className = 'lb-thumb'; t.alt = 'Foto ' + (i+1);
+    t.addEventListener('click', () => goTo(i));
+    lbThumbs.appendChild(t);
+  });
+
+  function goTo(index) {
+    lbCurrent = (index + galleryImages.length) % galleryImages.length;
+    lbImg.src = galleryImages[lbCurrent];
+    lbCounter.textContent = (lbCurrent + 1) + ' / ' + galleryImages.length;
+    lbThumbs.querySelectorAll('.lb-thumb').forEach((t, i) => t.classList.toggle('active', i === lbCurrent));
+    lbThumbs.querySelectorAll('.lb-thumb')[lbCurrent].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+
+  document.getElementById('openGallery').addEventListener('click', () => {
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    goTo(0);
+  });
+  document.getElementById('closeLightbox').addEventListener('click', () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+  document.getElementById('lbPrev').addEventListener('click', () => goTo(lbCurrent - 1));
+  document.getElementById('lbNext').addEventListener('click', () => goTo(lbCurrent + 1));
+
+  // Teclado
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') goTo(lbCurrent + 1);
+    if (e.key === 'ArrowLeft')  goTo(lbCurrent - 1);
+    if (e.key === 'Escape')     { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+
+  // Click fuera de la imagen cierra
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+</script>
+
+<!-- Tecnología con IA -->
+<section id="tecnologia">
+  <div class="tec-bg-glow"></div>
+  <div class="container">
+    <div class="tec-grid">
+
+      <!-- Imagen -->
+      <div class="tec-image-wrap">
+        <img src="img/tecnologia_ia.png" alt="Clases de tecnología con inteligencia artificial en Prepa ECCA">
+        <div class="tec-image-overlay"></div>
+        <div class="tec-image-badge">
+          <div class="tec-image-badge-dot"></div>
+          <span>Clases en vivo · 100% práctica</span>
+        </div>
+      </div>
+
+      <!-- Texto -->
+      <div>
+        <div class="tec-tag">Tecnología · Inteligencia Artificial</div>
+        <h2 class="tec-title">
+          DOMINA LAS<br>
+          HERRAMIENTAS<br>
+          <span class="tec-accent">DEL FUTURO</span>
+        </h2>
+        <p class="tec-desc">
+          En Prepa ECCA las clases de tecnología van más allá de la teoría. Aprenderás a dominar las herramientas más demandadas del mundo laboral actual usando Inteligencia Artificial como ventaja competitiva — con práctica real desde el primer día.
+        </p>
+        <div class="tec-pills">
+          <span class="tec-pill">ChatGPT</span>
+          <span class="tec-pill">Automatización</span>
+          <span class="tec-pill">Diseño con IA</span>
+          <span class="tec-pill">Productividad digital</span>
+          <span class="tec-pill">Análisis de datos</span>
+        </div>
+        <ul class="tec-features">
+          <li>Clases 100% prácticas: aprendes haciendo, no memorizando</li>
+          <li>Herramientas reales que usan hoy las empresas más importantes</li>
+          <li>Dominio de IA aplicada para estudiar, crear y resolver problemas</li>
+          <li>Formación que complementa cualquier carrera universitaria</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Por qué ECCA -->
+<section id="porque">
+  <div class="container">
+    <div style="max-width: 600px; margin-bottom: 0;">
+      <div class="section-tag">¿Por qué elegirnos?</div>
+      <h2 class="section-title">
+        LO QUE<br>
+        <span class="stroke">NOS HACE</span><br>
+        DIFERENTES
+      </h2>
+    </div>
+    <div class="porque-grid">
+      <div class="porque-item">
+        <div class="porque-num">01</div>
+        <div class="porque-icon">🎯</div>
+        <div class="porque-title">Formación integral real</div>
+        <p class="porque-desc">No separamos el deporte del estudio: los horarios están diseñados para que tu hijo pueda entrenar y estudiar sin sacrificar ninguno de los dos.</p>
+      </div>
+      <div class="porque-item">
+        <div class="porque-num">02</div>
+        <div class="porque-icon">👨‍🏫</div>
+        <div class="porque-title">Maestros que conocen a cada alumno</div>
+        <p class="porque-desc">Grupos con tamaño controlado. Aquí los profesores saben el nombre de cada estudiante y hacen seguimiento real de su avance.</p>
+      </div>
+      <div class="porque-item">
+        <div class="porque-num">03</div>
+        <div class="porque-icon">📅</div>
+        <div class="porque-title">Horarios flexibles</div>
+        <p class="porque-desc">Sistema cuatrimestral, matutino y sabatino. Adaptamos el esquema a la vida real de tu familia sin comprometer la calidad educativa.</p>
+      </div>
+      <div class="porque-item">
+        <div class="porque-num">04</div>
+        <div class="porque-icon">🏆</div>
+        <div class="porque-title">Cultura de alto rendimiento</div>
+        <p class="porque-desc">No premiamos la mediocridad. Enseñamos a los jóvenes a poner metas, a esforzarse y a celebrar los logros que se trabajan con sudor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sistemas -->
+<section id="sistemas">
+  <div class="container">
+    <div style="max-width: 600px; margin-bottom: 0;">
+      <div class="section-tag">Modalidades de estudio</div>
+      <h2 class="section-title">
+        EL SISTEMA<br>
+        QUE SE<br>
+        <span class="stroke">ADAPTA A TI</span>
+      </h2>
+    </div>
+    <div style="height: 48px;"></div>
+    <div class="sistemas-grid">
+      <div class="sistema-card highlighted">
+        <span class="sistema-tag gold">⭐ Más popular</span>
+        <div class="sistema-title">Sistema<br>Cuatrimestral</div>
+        <p class="sistema-desc">Termina tu prepa más rápido sin perder calidad. El sistema cuatrimestral permite avanzar con mayor agilidad y entrar antes a la universidad.</p>
+        <ul class="sistema-features">
+          <li>3 cuatrimestres por año</li>
+          <li>Horario matutino y vespertino</li>
+          <li>Certificado SEP válido en todo México</li>
+          <li>Ideal para combinar con deporte de alto rendimiento</li>
+        </ul>
+        <a href="#inscripcion" class="btn-primary">Inscribirme en cuatrimestral</a>
+      </div>
+      <div class="sistema-card">
+        <span class="sistema-tag outline">Modalidad flexible</span>
+        <div class="sistema-title">Sistema<br>Sabatino</div>
+        <p class="sistema-desc">Para jóvenes que trabajan, tienen responsabilidades durante la semana o viven fuera del centro de León. Clases los sábados, mismo nivel académico.</p>
+        <ul class="sistema-features">
+          <li>Clases solo los sábados</li>
+          <li>Mismo plan de estudios que el sistema regular</li>
+          <li>Comunidad de compañeros con retos similares</li>
+          <li>Certificado oficial con plena validez</li>
+        </ul>
+        <a href="https://wa.me/524777535213" class="btn-secondary" style="display:inline-block; margin-top: auto;">Preguntar por sabatino</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonios -->
+<section id="testimonios">
+  <div class="container">
+    <div class="section-tag">Lo que dicen los papás</div>
+    <h2 class="section-title">Alumnos <span class="stroke">QUE YA</span><br>CONFÍAN EN ECCA</h2>
+    <div class="testimonios-grid">
+      <div class="testimonio-card">
+        <div class="testimonio-quote">"</div>
+        <p class="testimonio-text">Mi hijo entró a ECCA sin saber qué quería de la vida. Hoy juega fútbol a nivel competitivo y ya tiene claro que quiere estudiar educación física. ECCA le dio dirección.</p>
+        <div class="testimonio-author">
+          <div class="testimonio-avatar">MR</div>
+          <div>
+            <div class="testimonio-name">Marco Ramírez</div>
+            <div class="testimonio-role">Papá de alumno de 2.° año</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card">
+        <div class="testimonio-quote">"</div>
+        <p class="testimonio-text">Lo que más me gustó fue que los maestros me llamaban por teléfono cuando veían algo. No tuve que esperar hasta el boletín para saber cómo iba mi hija.</p>
+        <div class="testimonio-author">
+          <div class="testimonio-avatar">LV</div>
+          <div>
+            <div class="testimonio-name">Laura Vega</div>
+            <div class="testimonio-role">Mamá de ex alumna, hoy universitaria</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card">
+        <div class="testimonio-quote">"</div>
+        <p class="testimonio-text">El sistema sabatino fue perfecto porque mi hijo trabaja en la tarde. Terminó su prepa, no dejó de trabajar y encima empezó a entrenar box. Imposible pedirle más a una escuela.</p>
+        <div class="testimonio-author">
+          <div class="testimonio-avatar">JH</div>
+          <div>
+            <div class="testimonio-name">Jorge Hernández</div>
+            <div class="testimonio-role">Papá de egresado generación 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Inscripción / CTA -->
+<section id="inscripcion">
+  <div class="inscripcion-bg"></div>
+  <div class="container">
+    <div class="inscripcion-content">
+      <div class="section-tag" style="margin-bottom: 16px;">Inscripciones abiertas</div>
+      <h2 class="inscripcion-title">
+        <span>EL SIGUIENTE</span><br>
+        <span class="line2">CAMPEÓN</span><br>
+        <span>ES TU HIJO</span>
+      </h2>
+      <p class="inscripcion-subtitle">
+        Déjanos tus datos y un asesor te contacta hoy mismo para explicarte el proceso, costos y fechas de inicio.
+      </p>
+      <div class="inscripcion-form">
+        <div class="form-row">
+          <input type="text" class="form-input" placeholder="Nombre del padre / tutor">
+          <input type="text" class="form-input" placeholder="Nombre del alumno">
+        </div>
+        <input type="tel" class="form-input" placeholder="WhatsApp (10 dígitos)">
+        <select class="form-input" style="appearance: none; cursor: pointer;">
+          <option value="" disabled selected>¿Qué deporte le interesa?</option>
+          <option>Fútbol</option>
+          <option>Box</option>
+          <option>Tocho Bandera</option>
+          <option>Basketball</option>
+          <option>Más de uno</option>
+        </select>
+        <button class="form-submit" onclick="alert('¡Gracias! Un asesor de Prepa ECCA te contactará muy pronto por WhatsApp. 🏆')">
+          Quiero información gratuita →
+        </button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Sin compromisos. Te contactamos en menos de 24 horas.</p>
+      <div class="inscripcion-contact">
+        <div class="contact-item">📍 <span><strong>5 de Febrero 628</strong>, Centro, León Gto.</span></div>
+        <div class="contact-item">📞 <span><strong>(477) 716-7495</strong></span></div>
+        <div class="contact-item">💬 <a href="https://wa.me/524777535213" style="color: var(--gold); text-decoration: none;"><strong>WhatsApp directo</strong></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div>
+        <div class="footer-brand-name">PREPA <span>ECCA</span></div>
+        <p class="footer-brand-desc">
+          Escuela Cultural y de Ciencias Administrativas. Formando jóvenes con excelencia académica y deportiva desde 1980 en León, Guanajuato.
+        </p>
+        <div class="footer-tagline">Por Dios · Por León · Por ECCA</div>
+      </div>
+      <div>
+        <div class="footer-heading">Deportes</div>
+        <ul class="footer-links">
+          <li><a href="#deportes">Box</a></li>
+          <li><a href="#deportes">Fútbol</a></li>
+          <li><a href="#deportes">Tocho Bandera</a></li>
+          <li><a href="#deportes">Basketball</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Sistemas</div>
+        <ul class="footer-links">
+          <li><a href="#sistemas">Cuatrimestral</a></li>
+          <li><a href="#sistemas">Sabatino</a></li>
+          <li><a href="#inscripcion">Inscripciones</a></li>
+          <li><a href="#inscripcion">Costos y becas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contacto</div>
+        <ul class="footer-links">
+          <li><a href="tel:4777167495">(477) 716-7495</a></li>
+          <li><a href="https://wa.me/524777535213">WhatsApp</a></li>
+          <li><a href="https://www.facebook.com/prepaecca">Facebook</a></li>
+          <li><a href="#inscripcion">Agendar visita</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Preparatoria ECCA de León · Todos los derechos reservados.</span>
+      <span>5 de Febrero 628, Centro, León, Guanajuato, México · C.P. 37000</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp widget -->
+<div class="wa-widget" id="waWidget">
+
+  <!-- Popup -->
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-popup-header">
+      <div class="wa-avatar">
+        <img src="img/logoecca_sin_fondo.png" alt="ECCA" onerror="this.style.display='none';this.parentElement.textContent='EC'">
+      </div>
+      <div class="wa-info">
+        <div class="wa-name">Prepa ECCA · Admisiones</div>
+        <div class="wa-status">En línea</div>
+      </div>
+      <button class="wa-popup-close" id="waClose">&#x2715;</button>
+    </div>
+    <div class="wa-popup-body">
+      <div class="wa-bubble">
+        ¡Hola! 👋 ¿Tienes preguntas sobre inscripciones, costos o deportes? Escríbenos, te respondemos al momento.
+        <div class="wa-bubble-time">ahora</div>
+      </div>
+    </div>
+    <a href="https://wa.me/524777535213?text=Hola%2C%20me%20interesa%20informaci%C3%B3n%20sobre%20Prepa%20ECCA" class="wa-popup-cta" target="_blank">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Abrir WhatsApp
+    </a>
+  </div>
+
+  <!-- Botón FAB -->
+  <button class="wa-fab" id="waFab" aria-label="Abrir chat WhatsApp">
+    <div class="wa-fab-badge">1</div>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </button>
+</div>
+
+<script>
+  const waWidget = document.getElementById('waWidget');
+  const waFab    = document.getElementById('waFab');
+  const waClose  = document.getElementById('waClose');
+  const waBadge  = waFab.querySelector('.wa-fab-badge');
+
+  waFab.addEventListener('click', () => {
+    waWidget.classList.toggle('open');
+    waBadge.style.display = 'none';
+  });
+  waClose.addEventListener('click', () => waWidget.classList.remove('open'));
+</script>
+
+</body>
+</html>
