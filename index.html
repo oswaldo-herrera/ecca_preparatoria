@@ -1627,24 +1627,42 @@
       <p class="inscripcion-subtitle">
         Déjanos tus datos y un asesor te contacta hoy mismo para explicarte el proceso, costos y fechas de inicio.
       </p>
-      <div class="inscripcion-form">
+      <!-- iframe oculto: captura la respuesta de Google sin redirigir la página -->
+      <iframe name="gform-iframe" style="display:none;" aria-hidden="true"></iframe>
+
+      <form
+        class="inscripcion-form"
+        id="eccaForm"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSd3j7luzy1BQqAXC1BW2wg-GzC1wGlCtHcQ6U20YEWWsgii-w/formResponse"
+        method="POST"
+        target="gform-iframe"
+        onsubmit="handleFormSubmit(event)"
+      >
         <div class="form-row">
-          <input type="text" class="form-input" placeholder="Nombre del padre / tutor">
-          <input type="text" class="form-input" placeholder="Nombre del alumno">
+          <input type="text"  class="form-input" name="entry.1226471710" placeholder="Nombre del padre / tutor" required>
+          <input type="text"  class="form-input" name="entry.103667233"  placeholder="Nombre del alumno" required>
         </div>
-        <input type="tel" class="form-input" placeholder="WhatsApp (10 dígitos)">
-        <select class="form-input" style="appearance: none; cursor: pointer;">
+        <input type="tel" class="form-input" name="entry.1325139683" placeholder="WhatsApp (10 dígitos)" pattern="[0-9]{10}" required>
+        <select class="form-input" name="entry.1560077535" style="appearance: none; cursor: pointer;" required>
           <option value="" disabled selected>¿Qué deporte le interesa?</option>
-          <option>Fútbol</option>
-          <option>Box</option>
-          <option>Tocho Bandera</option>
-          <option>Basketball</option>
-          <option>Más de uno</option>
+          <option value="Fútbol">Fútbol</option>
+          <option value="Box">Box</option>
+          <option value="Tocho Bandera">Tocho Bandera</option>
+          <option value="Basketball">Basketball</option>
+          <option value="Más de uno">Más de uno</option>
         </select>
-        <button class="form-submit" onclick="alert('¡Gracias! Un asesor de Prepa ECCA te contactará muy pronto por WhatsApp. 🏆')">
+        <button type="submit" class="form-submit">
           Quiero información gratuita →
         </button>
+      </form>
+
+      <!-- Mensaje de éxito (oculto hasta que se envíe) -->
+      <div id="formSuccess" style="display:none; text-align:center; padding: 32px 0;">
+        <div style="font-size: 48px; margin-bottom: 16px;">🏆</div>
+        <p style="font-family: var(--font-cond); font-size: 24px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">¡Registro recibido!</p>
+        <p style="font-size: 15px; color: var(--text-muted);">Un asesor de Prepa ECCA te contactará en menos de 24 horas por WhatsApp.</p>
       </div>
+
       <p style="font-size: 12px; color: var(--text-muted);">Sin compromisos. Te contactamos en menos de 24 horas.</p>
       <div class="inscripcion-contact">
         <div class="contact-item">📍 <span><strong>5 de Febrero 628</strong>, Centro, León Gto.</span></div>
@@ -1746,6 +1764,13 @@
     waBadge.style.display = 'none';
   });
   waClose.addEventListener('click', () => waWidget.classList.remove('open'));
+
+  function handleFormSubmit(e) {
+    setTimeout(() => {
+      document.getElementById('eccaForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }, 800);
+  }
 </script>
 
 <script>
